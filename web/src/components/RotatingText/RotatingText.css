@@ -1,0 +1,27 @@
+.rotating-text-wrapper {
+  display: inline-grid;
+  text-align: center;
+  position: relative;
+}
+
+.rotating-text-item {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  background: linear-gradient(90deg, #c471ed, #f64f59);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rotating-text-item.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.rotating-text-item.exiting {
+  opacity: 0;
+  transform: translateY(-20px);
+}

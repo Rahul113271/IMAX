@@ -1,0 +1,214 @@
+/* ── Carousel ── */
+
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+/* Track */
+.carousel-track {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 18px 20px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Slide */
+.carousel-slide {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.carousel-poster-wrap {
+  position: relative;
+  width: 160px;
+  height: 240px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  cursor: pointer;
+  background: linear-gradient(
+    135deg,
+    var(--bg-elevated) 0%,
+    var(--bg-surface) 100%
+  );
+}
+
+.carousel-poster-wrap:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(200, 125, 255, 0.2);
+}
+
+.carousel-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+/* Overlay for title & rating */
+.carousel-overlay {
+  position: absolute;
+  inset: 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.carousel-poster-wrap:hover .carousel-overlay {
+  opacity: 1;
+}
+
+.carousel-rating {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 99px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.carousel-rating.rating-high {
+  background: rgba(74, 222, 128, 0.2);
+  color: var(--rating-high);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.carousel-rating.rating-mid {
+  background: rgba(251, 191, 36, 0.2);
+  color: var(--rating-mid);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.carousel-rating.rating-low {
+  background: rgba(248, 113, 113, 0.2);
+  color: var(--rating-low);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+.carousel-title {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* Navigation buttons */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(14, 14, 26, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+  opacity: 0;
+}
+
+.carousel:hover .carousel-btn {
+  opacity: 1;
+}
+
+.carousel-btn:hover {
+  background: rgba(200, 125, 255, 0.15);
+  border-color: var(--accent);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.carousel-btn-left {
+  left: 10px;
+}
+
+.carousel-btn-right {
+  right: 10px;
+}
+
+/* Fade edges */
+.carousel::before,
+.carousel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.carousel::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(10, 10, 20, 0.9) 0%, transparent 100%);
+}
+
+.carousel::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(10, 10, 20, 0.9) 0%, transparent 100%);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .carousel-poster-wrap {
+    width: 120px;
+    height: 180px;
+  }
+
+  .carousel-track {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .carousel-btn {
+    display: none;
+  }
+}
